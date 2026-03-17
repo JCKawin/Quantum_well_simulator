@@ -13,3 +13,8 @@ dependencies = [
     "scipy",
     "sympy",
 ]
+
+[project.optional-dependencies]
+gpu = [
+    "cupy-cuda12x",
+]
