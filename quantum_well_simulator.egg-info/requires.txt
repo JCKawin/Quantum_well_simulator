@@ -1,0 +1,10 @@
+matplotlib
+mpmath
+numpy
+physipy
+qutip
+scipy
+sympy
+
+[gpu]
+cupy-cuda12x
