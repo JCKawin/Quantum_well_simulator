@@ -1,9 +1,11 @@
 matplotlib
 mpmath
 numpy
+scipy
+
+[full]
 physipy
 qutip
-scipy
 sympy
 
 [gpu]

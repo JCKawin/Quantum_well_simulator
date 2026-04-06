@@ -1,20 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "quantum-well-simulator"
 version = "0.1.0"
 description = "This is a Physics Research project done by Group 3"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.10"
 dependencies = [
     "matplotlib",
     "mpmath",
     "numpy",
-    "physipy",
-    "qutip",
     "scipy",
-    "sympy",
 ]
 
 [project.optional-dependencies]
+full = [
+    "physipy",
+    "qutip",
+    "sympy",
+]
 gpu = [
     "cupy-cuda12x",
 ]
+
+[project.scripts]
+qms-simulate = "qms.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["qms*"]

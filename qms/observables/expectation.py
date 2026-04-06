@@ -1,6 +1,5 @@
 import mpmath
 import numpy as np
-import qutip
 
 from ..utils.backend import get_array_module, to_numpy
 from ..wavefunction.normalization import inner_product, normalize_wavefunction, probability_density
@@ -103,6 +102,7 @@ def expectation_energy(
     psi_n = normalize_wavefunction(psi, dx=dx, use_gpu=use_gpu)
 
     if use_qutip:
+        import qutip  # optional dependency
         psi_q = qutip.Qobj(to_numpy(psi_n).reshape((-1, 1)))
         h_q = qutip.Qobj(to_numpy(h))
         return float(np.real(qutip.expect(h_q, psi_q)))

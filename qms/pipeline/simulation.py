@@ -23,6 +23,7 @@ def run_static_simulation(
 	energies, states = solve_eigenvalue_problem(h, num_states=num_states, use_gpu=use_gpu)
 
 	dx = float(to_numpy(x[1] - x[0]))
+	states = states.astype(xp.complex128)
 	for i in range(states.shape[1]):
 		states[:, i] = normalize_wavefunction(states[:, i], dx=dx, use_gpu=use_gpu)
 

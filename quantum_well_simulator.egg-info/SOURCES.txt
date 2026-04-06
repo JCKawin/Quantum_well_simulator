@@ -30,5 +30,6 @@ qms/wavefunction/wavepacket.py
 quantum_well_simulator.egg-info/PKG-INFO
 quantum_well_simulator.egg-info/SOURCES.txt
 quantum_well_simulator.egg-info/dependency_links.txt
+quantum_well_simulator.egg-info/entry_points.txt
 quantum_well_simulator.egg-info/requires.txt
 quantum_well_simulator.egg-info/top_level.txt
