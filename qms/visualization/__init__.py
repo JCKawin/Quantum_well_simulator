@@ -6,6 +6,7 @@ from .plots import (
     plot_probability_density,
     plot_wavefunction,
 )
+from .tui import QuantumWellTUI, TUIConfig, launch_tui_from_cli
 
 __all__ = [
     "plot_wavefunction",
@@ -14,4 +15,7 @@ __all__ = [
     "plot_energy_levels",
     "plot_eigenstates",
     "animate_time_evolution",
+    "QuantumWellTUI",
+    "TUIConfig",
+    "launch_tui_from_cli",
 ]

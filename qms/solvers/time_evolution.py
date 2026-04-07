@@ -2,6 +2,9 @@ import scipy.linalg as la
 
 from ..solvers.eigen import solve_eigenvalue_problem
 from ..utils.backend import cp, get_array_module
+from ..utils.logging import get_logger
+
+logger = get_logger(__name__)
 
 
 def time_evolve_wavefunction(
@@ -84,6 +87,8 @@ def run_time_simulation(
 	if hbar <= 0:
 		raise ValueError("`hbar` must be positive")
 
+	logger.info("run_time_simulation started")
+
 	xp = get_array_module(use_gpu)
 	psi0 = xp.asarray(psi0, dtype=xp.complex128)
 	t_arr = xp.asarray(t_array, dtype=xp.float64)
@@ -99,6 +104,8 @@ def run_time_simulation(
 		hbar=hbar,
 		use_gpu=use_gpu,
 	)
+
+	logger.info("run_time_simulation completed: frames=%s states=%s", int(t_arr.size), int(states.shape[1]))
 
 	return {
 		"t": t_arr,

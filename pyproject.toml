@@ -10,6 +10,7 @@ dependencies = [
     "numpy",
     "physipy",
     "qutip",
+    "rich",
     "scipy",
     "sympy",
 ]

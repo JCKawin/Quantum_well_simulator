@@ -3,7 +3,10 @@ from ..core.potentials import potential
 from ..solvers.eigen import solve_eigenvalue_problem
 from ..solvers.time_evolution import run_time_simulation
 from ..utils.backend import get_array_module, to_numpy
+from ..utils.logging import get_logger
 from ..wavefunction.normalization import normalize_wavefunction
+
+logger = get_logger(__name__)
 
 
 def run_static_simulation(
@@ -14,6 +17,7 @@ def run_static_simulation(
 	num_states: int = 5,
 	use_gpu: bool = False,
 ):
+	logger.info("run_static_simulation started")
 	xp = get_array_module(use_gpu)
 	x = xp.asarray(x, dtype=xp.float64)
 	if x.size < 3:
@@ -25,6 +29,8 @@ def run_static_simulation(
 	dx = float(to_numpy(x[1] - x[0]))
 	for i in range(states.shape[1]):
 		states[:, i] = normalize_wavefunction(states[:, i], dx=dx, use_gpu=use_gpu)
+
+	logger.info("run_static_simulation completed: points=%s states=%s", int(x.size), int(states.shape[1]))
 
 	return {
 		"x": x,
@@ -38,6 +44,8 @@ def run_static_simulation(
 def simulate_quantum_well(well_type: str, params: dict):
 	if not isinstance(params, dict):
 		raise ValueError("`params` must be a dictionary")
+
+	logger.info("simulate_quantum_well called: well_type=%s", well_type)
 
 	use_gpu = bool(params.get("use_gpu", False))
 	xp = get_array_module(use_gpu)
@@ -87,12 +95,15 @@ def simulate_quantum_well(well_type: str, params: dict):
 	)
 	result["well_type"] = wt
 	result["potential"] = Vx
+	logger.info("simulate_quantum_well completed: type=%s", wt)
 	return result
 
 
 def run_full_pipeline(config: dict):
 	if not isinstance(config, dict):
 		raise ValueError("`config` must be a dictionary")
+
+	logger.info("run_full_pipeline started")
 
 	use_gpu = bool(config.get("use_gpu", False))
 	hbar = float(config.get("hbar", 1.0))
@@ -121,6 +132,7 @@ def run_full_pipeline(config: dict):
 
 	t_array = config.get("t_array")
 	if t_array is not None:
+		logger.info("time evolution requested: frames=%s", len(t_array))
 		xp = get_array_module(use_gpu)
 		psi0 = config.get("psi0")
 		if psi0 is None:
@@ -135,6 +147,8 @@ def run_full_pipeline(config: dict):
 			use_gpu=use_gpu,
 		)
 		output["time"] = time_result
+
+	logger.info("run_full_pipeline completed")
 
 	return output
 
